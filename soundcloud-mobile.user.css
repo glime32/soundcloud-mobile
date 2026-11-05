@@ -1,0 +1,818 @@
+/* ==UserStyle==
+@name         SoundCloud Mobile – style Spotify
+@namespace    glime32
+@version      8.0.0
+@author       glime32
+@updateURL    https://raw.githubusercontent.com/glime32/soundcloud-mobile/main/soundcloud-mobile.user.css
+@description  Interface façon Spotify / YouTube Music pour SoundCloud en mode ordinateur sur téléphone (noir OLED + violet #610089)
+==/UserStyle== */
+
+@-moz-document domain("soundcloud.com") {
+
+/* Actif seulement en portrait : sur un PC (paysage) rien ne change */
+
+/* Taille de la page (480 = un peu plus petit, 420 = plus gros) */
+@media (orientation: portrait) and (min-width: 700px) {
+  html { zoom: 2.15 !important; zoom: calc(100vw / 480px) !important; }
+}
+
+@media (orientation: portrait) {
+
+  :root {
+    --v: #610089;
+    --nav-h: 60px;
+    --player-h: 200px;
+    --rouge: #ff0000;
+    --to-red: brightness(0) invert(1) sepia(1) saturate(10000%) hue-rotate(-50deg) saturate(10000%);
+    --i-play: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+    --i-pause: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 19h4V5H6v14zm8-14v14h4V5h-4z'/%3E%3C/svg%3E");
+    --i-prev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6h2v12H6zm3.5 6l8.5 6V6z'/%3E%3C/svg%3E");
+    --i-next: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z'/%3E%3C/svg%3E");
+    --i-shuffle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z'/%3E%3C/svg%3E");
+    --i-repeat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z'/%3E%3C/svg%3E");
+    --i-repeat1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4zm-4-2V9h-1l-2 1v1h1.5v4H13z'/%3E%3C/svg%3E");
+    --i-home: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+    --i-feed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 5h16v3H4zm0 5.5h16v3H4zM4 16h16v3H4z'/%3E%3C/svg%3E");
+    --i-library: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 5h-3v5.5a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1 3.5-2.29V5h4.5v2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z'/%3E%3C/svg%3E");
+    --w-play: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+    --w-pause: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M6 19h4V5H6v14zm8-14v14h4V5h-4z'/%3E%3C/svg%3E");
+    --w-heart: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z'/%3E%3C/svg%3E");
+    --v-heart: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23610089' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+    --w-queue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z'/%3E%3C/svg%3E");
+  }
+
+  html {
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+  }
+  html, body { min-width: 0 !important; overflow-x: clip !important; }
+  * { -webkit-tap-highlight-color: transparent; }
+
+  /* Fond noir OLED */
+  :is(html,#_), :is(html,#_) body, :is(html,#_) #app, :is(html,#_) #content,
+  :is(html,#_) .l-container, :is(html,#_) .l-main, :is(html,#_) .l-content,
+  :is(html,#_) .l-fixed-top-one-column > .l-top,
+  :is(html,#_) .header, :is(html,#_) .header__inner {
+    background-color: #000 !important;
+  }
+  :is(html,#_) .header { border: 0 !important; box-shadow: none !important; }
+
+  /* Mise en page fluide */
+  :is(html,#_) :is(#app, #content, [class^="l-"], [class*=" l-"], .header, .header__inner, .playControls, .playControls__inner) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  :is(html,#_) .l-container {
+    width: auto !important;
+    margin: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+  }
+  :is(html,#_) .l-fluid-fixed { display: block !important; }
+  :is(html,#_) .l-main {
+    float: none !important;
+    width: auto !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    border-right: 0 !important;
+  }
+  :is(html,#_) .l-sidebar-right {
+    float: none !important;
+    position: static !important;
+    width: auto !important;
+    margin: 24px 0 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  :is(html,#_) .l-sidebar-right > * {
+    position: static !important;
+    width: auto !important;
+    top: auto !important;
+  }
+  :is(html,#_) .l-fixed-top-one-column > .l-top {
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    border: 0 !important;
+  }
+  :is(html,#_) #content { padding-bottom: 270px !important; }
+
+  /* Inutile : pubs Go+/Pro, annonces, footer */
+  :is(html,#_) :is([class*="psell" i], [class*="nnouncement" i],
+        [class*="Banner" i]:has([href*="upload"]), [class*="notice" i]:has([href*="upload"]),
+        .l-footer, .frontMobileTeaser, .banner.m-promotion, #onetrust-consent-sdk,
+        .sidebarModule:has(a[href*="checkout"]), .sidebarModule:has([class*="psell" i])) {
+    display: none !important;
+  }
+
+  /* Barre du haut : recherche + icônes */
+  :is(html,#_) .header {
+    width: 100% !important;
+    z-index: 1002 !important;
+    transform: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    will-change: auto !important;
+    contain: none !important;
+  }
+  :is(html,#_) .header__inner {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 10px !important;
+    box-sizing: border-box !important;
+  }
+  :is(html,#_) .header__inner > * { float: none !important; }
+  :is(html,#_) .header__left { flex: 0 0 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important; }
+  :is(html,#_) .header__logo { display: none !important; }
+  :is(html,#_) .header__middle {
+    position: relative !important;
+    flex: 1 1 auto !important;
+    min-width: 60px !important;
+    width: auto !important;
+    margin: 0 10px 0 0 !important;
+    padding: 0 !important;
+  }
+  :is(html,#_) .header__middle :is(div, form, label, input) {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+  :is(html,#_) .header__middle :is(div, form, label) { padding-left: 0 !important; padding-right: 0 !important; }
+  /* la grosse loupe */
+  :is(html,#_) .header__middle :is(button, [type="submit"], [class*="ubmit" i], svg) { display: none !important; }
+  :is(html,#_) .header__middle input {
+    height: 34px !important;
+    margin: 0 !important;
+    padding: 0 14px !important;
+    border-radius: 999px !important;
+    border: 2px solid var(--v) !important;
+    background: #000 padding-box !important;
+    color: #fff !important;
+    font-size: 14px !important;
+    box-sizing: border-box !important;
+  }
+  :is(html,#_) .header__middle input:focus { outline: none !important; }
+  :is(html,#_) .header__middle input::placeholder { color: #8c8c8c !important; }
+
+  /* autres champs (Filtre, commentaires…) : noir, pas gris */
+  :is(html,#_) #content input:is([type="search"], [type="text"], :not([type])) {
+    background: #000 padding-box !important;
+    border: 2px solid #333 !important;
+    border-radius: 999px !important;
+    color: #fff !important;
+    box-shadow: none !important;
+  }
+  :is(html,#_) .header__right {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    background: #000 !important;
+  }
+  :is(html,#_) .header__right :is([class*="goPlus" i], [class*="artistPro" i], [class*="creator" i],
+                       [class*="upload" i], [class*="studio" i], [class*="forArtists" i]),
+  :is(html,#_) .header__right a:is([href*="upload"], [href*="artists"], [href*="artist-"],
+                        [href*="checkout"], [href$="/pro"], [href*="/pro?"], [href*="/pro/"],
+                        [href*="soundcloudgo"], [href*="go-plus"], [href$="/go"], [href*="/go?"]),
+  :is(html,#_) .header__right li:has(> a:is([href*="upload"], [href*="artists"], [href*="checkout"])),
+  :is(html,#_) .header__right [class*="Username" i]:not([class*="Button" i]) {
+    display: none !important;
+  }
+  /* icônes en haut à droite (flèche, cloche, messages, •••) : rouge vif pur */
+  :is(html,#_) .header__right svg,
+  :is(html,#_) .header__right :is(a, button):not(:has(svg, img, .sc-artwork, [style*="background-image"])),
+  :is(html,#_) .header__right :is(a, button):has(.sc-artwork)::after {
+    filter: var(--to-red) !important;
+  }
+  :is(html,#_) .header__right :is(.sc-artwork, img, [style*="background-image"]) { filter: none !important; }
+
+  /* Barre de navigation en bas (Home / Feed / Library) */
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: auto !important;
+    height: var(--nav-h) !important;
+    display: flex !important;
+    align-items: stretch !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000 !important;
+    border-top: 2px solid #161616 !important;
+    z-index: 3 !important;
+  }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li {
+    flex: 1 1 0 !important;
+    float: none !important;
+    list-style: none !important;
+    margin: 0 !important;
+  }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li > a {
+    position: relative !important;
+    isolation: isolate !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    width: auto !important;
+    height: 100% !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1.1 !important;
+    color: #9a9a9a !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li > a > :is(svg, img) { display: none !important; }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li > a::before {
+    content: "" !important;
+    display: block !important;
+    width: 26px !important;
+    height: 26px !important;
+    background: currentColor !important;
+    -webkit-mask: var(--i-home) center / contain no-repeat !important;
+    mask: var(--i-home) center / contain no-repeat !important;
+  }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li > a:is([href*="feed"], [href*="stream"])::before {
+    -webkit-mask-image: var(--i-feed) !important;
+    mask-image: var(--i-feed) !important;
+  }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li > a[href*="library"]::before {
+    -webkit-mask-image: var(--i-library) !important;
+    mask-image: var(--i-library) !important;
+  }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li > a::after {
+    content: "" !important;
+    position: absolute !important;
+    z-index: -1 !important;
+    top: 6px !important;
+    left: 50% !important;
+    width: 64px !important;
+    height: 32px !important;
+    margin-left: -32px !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+  }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li > a.selected { color: #fff !important; }
+  :is(html,#_) .header__navMenu:not(:has(.header__moreButton)) > li > a.selected::after { background: var(--v) !important; }
+
+  /* Onglets en puces (Overview, Likes, Playlists…) */
+  :is(html,#_) .g-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    scrollbar-width: none !important;
+    padding: 8px 0 !important;
+    border: 0 !important;
+  }
+  :is(html,#_) .g-tabs::-webkit-scrollbar { display: none !important; }
+  :is(html,#_) .g-tabs::before, :is(html,#_) .g-tabs::after { display: none !important; }
+  :is(html,#_) .g-tabs > li { float: none !important; flex: 0 0 auto !important; margin: 0 !important; list-style: none !important; }
+  :is(html,#_) .g-tabs-link, :is(html,#_) .g-tabs-link:visited {
+    display: block !important;
+    margin: 0 !important;
+    padding: 6px 14px !important;
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    background: #000 padding-box !important;
+    border: 2px solid #333 !important;
+    border-radius: 999px !important;
+  }
+  :is(html,#_) .g-tabs-link:is(.active, [aria-current="page"]) {
+    background: var(--v) padding-box !important;
+    border-color: var(--v) !important;
+  }
+
+  /* Haut des Likes : « Hear the tracks you've liked » caché, boutons rouges */
+  :is(html,#_) [class*="collectionSection__heading" i],
+  :is(html,#_) #content :is(div, header, section):has(input):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm)) > :is(h1, h2, h3, h4, [class*="eading" i]) {
+    display: none !important;
+  }
+  :is(html,#_) #content :is(div, header, section):has(input):has(button, .sc-button):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm, .sound)) :is(button, .sc-button):not(.sc-button-play):not(#gl-shuffle) {
+    background-color: transparent !important;
+    background-clip: padding-box !important;
+    border: 2px solid var(--rouge) !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+  }
+  :is(html,#_) #content :is(div, header, section):has(input):has(button, .sc-button):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm, .sound)) :is(button, .sc-button):not(.sc-button-play):not(#gl-shuffle) :is(svg, img),
+  :is(html,#_) #content :is(div, header, section):has(input):has(button, .sc-button):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm, .sound)) :is(button, .sc-button):not(.sc-button-play):not(#gl-shuffle):not(:has(svg, img))::before {
+    filter: var(--to-red) !important;
+  }
+  /* bouton de vue choisi : fond rouge, icône blanche */
+  :is(html,#_) #content :is(div, header, section):has(input):has(button, .sc-button):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm, .sound)) :is(button, .sc-button):not(#gl-shuffle):is(.sc-button-selected, .sc-button-active, .active, .selected, [aria-pressed="true"], [aria-selected="true"]) {
+    background-color: var(--rouge) !important;
+  }
+  :is(html,#_) #content :is(div, header, section):has(input):has(button, .sc-button):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm, .sound)) :is(button, .sc-button):not(#gl-shuffle):is(.sc-button-selected, .sc-button-active, .active, .selected, [aria-pressed="true"], [aria-selected="true"]) :is(svg, img),
+  :is(html,#_) #content :is(div, header, section):has(input):has(button, .sc-button):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm, .sound)) :is(button, .sc-button):not(#gl-shuffle):is(.sc-button-selected, .sc-button-active, .active, .selected, [aria-pressed="true"], [aria-selected="true"]):not(:has(svg, img))::before {
+    filter: brightness(0) invert(1) !important;
+  }
+  :is(html,#_) #content :is(div, header, section):has(button, .sc-button):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm, .sound)) > * input,
+  :is(html,#_) #content :is(div, header, section):has(button, .sc-button):not(:has(li[class*="adgeList__item"], .soundList, .trackList, .commentForm, .sound)) > input {
+    border-color: var(--rouge) !important;
+  }
+
+  /* Grille Likes / Bibliothèque : 3 colonnes */
+  :is(html,#_) ul:has(> li[class*="adgeList__item"]) {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px 8px !important;
+    align-items: start !important;
+    grid-auto-rows: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  :is(html,#_) ul:has(> li[class*="adgeList__item"])::before,
+  :is(html,#_) ul:has(> li[class*="adgeList__item"])::after { display: none !important; }
+  :is(html,#_) li[class*="adgeList__item"] {
+    list-style: none !important;
+    float: none !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  :is(html,#_) li[class*="adgeList__item"] * { max-width: 100% !important; }
+  :is(html,#_) li[class*="adgeList__item"] [class*="Tile"]:not([class*="Tile__"]),
+  :is(html,#_) li[class*="adgeList__item"] [class*="soundBadge"]:not([class*="soundBadge__"]) {
+    width: 100% !important;
+  }
+  :is(html,#_) li[class*="adgeList__item"] [class*="__artwork"] {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+  }
+  :is(html,#_) li[class*="adgeList__item"] [class*="__artwork"] :is(.sc-artwork, .image, [class*="__image"], img) {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    background-size: cover !important;
+    background-position: center !important;
+    object-fit: cover !important;
+  }
+  /* plus d'espace vide sous les titres */
+  :is(html,#_) li[class*="adgeList__item"] *:not([class*="__artwork"]):not(.sc-artwork):not(.image):not([class*="__image"]):not(img):not(.sc-button):not(button) {
+    height: auto !important;
+    min-height: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  :is(html,#_) li[class*="adgeList__item"] [class*="__artwork"] { margin: 0 !important; padding: 0 !important; }
+  :is(html,#_) li[class*="adgeList__item"] :is([class*="Tile__description"], [class*="Badge__content"]) { margin-top: 6px !important; }
+
+  /* bouton lecture au milieu de la pochette, toujours visible */
+  :is(html,#_) li[class*="adgeList__item"] [class*="__artwork"] :has(.sc-button-play) {
+    position: static !important;
+    transform: none !important;
+  }
+  :is(html,#_) li[class*="adgeList__item"] :is(.sc-button-play, [class*="playButton"]) {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  :is(html,#_) li[class*="adgeList__item"] .sc-button-play {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 0 !important;
+    margin: -22px 0 0 -22px !important;
+    padding: 0 !important;
+    transform: none !important;
+    z-index: 2 !important;
+  }
+  :is(html,#_) li[class*="adgeList__item"] :is(.sc-button-like, .sc-button-follow, .sc-button-repost, .sc-button-more, .sc-button-share) {
+    display: none !important;
+  }
+  :is(html,#_) .sc-artwork { border-radius: 8px !important; }
+
+  /* Boutons lecture violets partout (une seule icône) */
+  :is(html,#_) .sc-button-play {
+    background: var(--v) var(--w-play) center / 46% no-repeat !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .6) !important;
+  }
+  :is(html,#_) .sc-button-play.sc-button-pause {
+    background: var(--v) var(--w-pause) center / 46% no-repeat !important;
+  }
+  :is(html,#_) .sc-button-play > *,
+  :is(html,#_) .sc-button-play::before,
+  :is(html,#_) .sc-button-play::after { display: none !important; }
+
+  /* Cœurs : blanc vide / violet plein, sans boîte grise */
+  :is(html,#_) .sc-button-like.sc-button-icon {
+    background: transparent var(--w-heart) center / 18px no-repeat !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    color: transparent !important;
+    font-size: 0 !important;
+  }
+  :is(html,#_) .sc-button-like.sc-button-icon.sc-button-selected {
+    background-image: var(--v-heart) !important;
+  }
+  :is(html,#_) .sc-button-like.sc-button-icon > *,
+  :is(html,#_) .sc-button-like.sc-button-icon::before,
+  :is(html,#_) .sc-button-like.sc-button-icon::after { display: none !important; }
+
+  /* Page d'un titre : pochette réduite */
+  :is(html,#_) :is([class*="ListenHero__artwork"], [class*="fullHero__artwork"], .listenArtworkWrapper) {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  :is(html,#_) :is([class*="ListenHero__artwork"], [class*="fullHero__artwork"], .listenArtworkWrapper) :is(.sc-artwork, .image, span) {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Lecteur : carte façon Spotify */
+  :is(html,#_) .playControls {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: var(--nav-h) !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    border: 0 !important;
+    z-index: 1001 !important;
+  }
+  :is(html,#_) .playControls__bg { display: none !important; }
+  :is(html,#_) :is(.playControls, .playControls__inner, .playControls__wrapper, .playControls__elements, .playControls__panel, :has(> .queue)) {
+    transform: none !important;
+    will-change: auto !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    contain: none !important;
+  }
+  :is(html,#_) .playControls__inner {
+    width: auto !important;
+    height: auto !important;
+    margin: 0 8px 6px !important;
+    padding: 8px 10px 4px !important;
+    background: #000 padding-box !important;
+    border: 2px solid var(--v) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 -8px 28px rgba(0, 0, 0, .95) !important;
+    box-sizing: border-box !important;
+  }
+  :is(html,#_) .playControls__elements {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  :is(html,#_) .playControls__elements > * {
+    float: none !important;
+    margin: 0 !important;
+    order: 9 !important;
+  }
+
+  /* Volume et Cast inutiles sur téléphone */
+  :is(html,#_) .playControls__elements > :is([class*="olume"], :has([class*="olume"]), [class*="ast" i]:not(.playControls__soundBadge):not(.playControls__timeline), :has([class*="castControl"])) {
+    display: none !important;
+  }
+
+  /* Ligne 1 : pochette + titre + actions */
+  :is(html,#_) .playControls__elements > :is(.playControls__soundBadge, :has(.playbackSoundBadge)) {
+    order: 1 !important;
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 0 4px !important;
+  }
+  :is(html,#_) .playbackSoundBadge {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  :is(html,#_) :is(.playbackSoundBadge__avatar, .playbackSoundBadge__avatar .sc-artwork, .playbackSoundBadge__avatar span) {
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 8px !important;
+    flex: none !important;
+  }
+  :is(html,#_) .playbackSoundBadge__titleContextContainer {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    margin-left: 10px !important;
+  }
+  :is(html,#_) :is(.playbackSoundBadge__titleContextContainer, .playbackSoundBadge__titleContextContainer *) {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  :is(html,#_) :is(.playbackSoundBadge__titleLink, .playbackSoundBadge__titleLink *) {
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+  :is(html,#_) .playbackSoundBadge__lightLink {
+    color: #a8a8a8 !important;
+    font-size: 11px !important;
+  }
+  :is(html,#_) .playbackSoundBadge__actions { flex: none !important; display: flex !important; align-items: center !important; gap: 2px !important; }
+  :is(html,#_) .playbackSoundBadge__actions :is(button, a, .sc-button) {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    box-shadow: none !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    background: transparent var(--w-heart) center / 26px no-repeat !important;
+  }
+  :is(html,#_) .playbackSoundBadge__actions .sc-button-selected { background-image: var(--v-heart) !important; }
+  :is(html,#_) .playbackSoundBadge__actions :is(.playbackSoundBadge__showQueue, [class*="ueue" i]) {
+    background-image: var(--w-queue) !important;
+  }
+  :is(html,#_) .playbackSoundBadge__actions :is(button, a, .sc-button) > *,
+  :is(html,#_) .playbackSoundBadge__actions :is(button, a, .sc-button)::before,
+  :is(html,#_) .playbackSoundBadge__actions :is(button, a, .sc-button)::after { display: none !important; }
+  :is(html,#_) .playbackSoundBadge__follow { display: none !important; }
+
+  /* Ligne 2 : progression */
+  :is(html,#_) .playControls__elements > :is(.playControls__timeline, :has(.playbackTimeline)) {
+    order: 2 !important;
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  :is(html,#_) .playbackTimeline {
+    position: relative !important;
+    touch-action: none !important;
+    padding: 6px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    font-size: 10px !important;
+    color: #a8a8a8 !important;
+  }
+  :is(html,#_) :is(.playbackTimeline__timePassed, .playbackTimeline__duration) {
+    flex: none !important;
+    width: auto !important;
+    min-width: 30px !important;
+    color: #a8a8a8 !important;
+  }
+  :is(html,#_) .playbackTimeline__duration { text-align: right !important; }
+  /* la barre est remise à l'échelle réelle : SoundCloud calcule alors la bonne position
+     (sinon un appui à 0:29 envoie à 1:00) ; zone tactile haute pour le doigt */
+  :is(html,#_) .playbackTimeline__progressWrapper {
+    zoom: 0.465 !important;
+    zoom: calc(480px / 100vw) !important;
+    position: relative !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    height: 64px !important;
+    margin: 0 16px !important;
+    padding: 0 !important;
+    touch-action: none !important;
+  }
+  :is(html,#_) .playbackTimeline__progressWrapper :is(.playbackTimeline__progressBackground, .playbackTimeline__progressBar) {
+    position: absolute !important;
+    top: 50% !important;
+    left: 0 !important;
+    height: 10px !important;
+    margin: -5px 0 0 0 !important;
+    border-radius: 10px !important;
+  }
+  :is(html,#_) .playbackTimeline__progressBackground { width: 100% !important; background: #2e2e2e !important; }
+  :is(html,#_) .playbackTimeline__progressBar { background: var(--v) !important; }
+  :is(html,#_) .playbackTimeline__progressHandle {
+    position: absolute !important;
+    top: 50% !important;
+    width: 30px !important;
+    height: 30px !important;
+    margin: -15px 0 0 -15px !important;
+    background: #fff !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+  }
+
+  /* Ligne 3 : aléatoire · précédent · lecture · suivant · répéter */
+  :is(html,#_) .playControls__elements > :is(.shuffleControl, :has(.shuffleControl)) { order: 3 !important; }
+  :is(html,#_) .playControls__elements > :is(.skipControl__previous, :has(.skipControl__previous)) { order: 4 !important; }
+  :is(html,#_) .playControls__elements > :is(.playControl, :has(.playControl)) { order: 5 !important; }
+  :is(html,#_) .playControls__elements > :is(.skipControl__next, :has(.skipControl__next)) { order: 6 !important; }
+  :is(html,#_) .playControls__elements > :is(.repeatControl, :has(.repeatControl)) { order: 7 !important; }
+
+  /* les emballages autour des boutons : transparents */
+  :is(html,#_) .playControls__elements > :has(:is(.playControl, .skipControl, .shuffleControl, .repeatControl)):not(.playControls__soundBadge):not(.playControls__timeline) {
+    display: flex !important;
+    align-items: center !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  :is(html,#_) .playControls__elements :is(.playControl, .skipControl, .shuffleControl, .repeatControl) {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: none !important;
+    width: 50px !important;
+    height: 50px !important;
+    margin: 2px 6px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    box-shadow: none !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    text-indent: 0 !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transition: background-color .2s, transform .15s !important;
+  }
+  :is(html,#_) .playControls__elements :is(.playControl, .skipControl, .shuffleControl, .repeatControl) > * { display: none !important; }
+  :is(html,#_) .playControls__elements :is(.playControl, .skipControl, .shuffleControl, .repeatControl):active {
+    transform: scale(.9) !important;
+  }
+  :is(html,#_) .playControls__elements :is(.playControl, .skipControl, .shuffleControl, .repeatControl)::before {
+    content: "" !important;
+    position: static !important;
+    display: block !important;
+    width: 30px !important;
+    height: 30px !important;
+    margin: 0 !important;
+    background: #fff !important;
+    -webkit-mask-position: center !important;
+    -webkit-mask-size: contain !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-position: center !important;
+    mask-size: contain !important;
+    mask-repeat: no-repeat !important;
+  }
+  :is(html,#_) .playControls__elements :is(.playControl, .skipControl, .shuffleControl, .repeatControl)::after {
+    display: none !important;
+  }
+
+  /* Lecture / pause : rond violet */
+  :is(html,#_) .playControls__elements .playControl {
+    width: 64px !important;
+    height: 64px !important;
+    margin: 2px 10px !important;
+    background: var(--v) !important;
+    box-shadow: none !important;
+  }
+  :is(html,#_) .playControls__elements .playControl::before {
+    width: 36px !important;
+    height: 36px !important;
+    -webkit-mask-image: var(--i-play) !important;
+    mask-image: var(--i-play) !important;
+  }
+  :is(html,#_) .playControls__elements .playControl.playing::before {
+    -webkit-mask-image: var(--i-pause) !important;
+    mask-image: var(--i-pause) !important;
+  }
+  :is(html,#_) .playControls__elements .skipControl__previous::before {
+    -webkit-mask-image: var(--i-prev) !important;
+    mask-image: var(--i-prev) !important;
+  }
+  :is(html,#_) .playControls__elements .skipControl__next::before {
+    -webkit-mask-image: var(--i-next) !important;
+    mask-image: var(--i-next) !important;
+  }
+
+  /* Aléatoire : gris = désactivé, rond violet = activé */
+  :is(html,#_) .playControls__elements .shuffleControl::before {
+    width: 26px !important;
+    height: 26px !important;
+    background: #8c8c8c !important;
+    -webkit-mask-image: var(--i-shuffle) !important;
+    mask-image: var(--i-shuffle) !important;
+  }
+  :is(html,#_) .playControls__elements .shuffleControl.m-shuffling { background: var(--v) !important; }
+  :is(html,#_) .playControls__elements .shuffleControl.m-shuffling::before { background: #fff !important; }
+
+  /* Répéter : gris = non, rond violet = tout, rond violet + « 1 » = un titre */
+  :is(html,#_) .playControls__elements .repeatControl::before {
+    width: 26px !important;
+    height: 26px !important;
+    background: #8c8c8c !important;
+    -webkit-mask-image: var(--i-repeat) !important;
+    mask-image: var(--i-repeat) !important;
+  }
+  :is(html,#_) .playControls__elements .repeatControl:is(.m-all, .m-one) { background: var(--v) !important; }
+  :is(html,#_) .playControls__elements .repeatControl:is(.m-all, .m-one)::before { background: #fff !important; }
+  :is(html,#_) .playControls__elements .repeatControl.m-one::before {
+    -webkit-mask-image: var(--i-repeat1) !important;
+    mask-image: var(--i-repeat1) !important;
+  }
+
+  /* File d'attente (Next up) : panneau au-dessus du lecteur, qui reste visible */
+  :is(html,#_) .queue {
+    position: fixed !important;
+    top: 52px !important;
+    bottom: calc(var(--nav-h) + var(--player-h)) !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    background: #000 padding-box !important;
+    border: 2px solid var(--v) !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    z-index: 1010 !important;
+  }
+  :is(html,#_) .queue :is([class*="queueItemView"], [class*="queue__item"]) { background-color: transparent !important; }
+  :is(html,#_) .queue :is(.sc-artwork, :has(> .sc-artwork):not([class*="queueItemView"]):not([class*="queue__item"]):not(:has(> [class*="itle" i])), [class*="queueItemView__artwork"]) {
+    flex: none !important;
+    width: 54px !important;
+    height: 54px !important;
+    border-radius: 8px !important;
+  }
+  :is(html,#_) .queue :is(:has(> .sc-artwork):not([class*="queueItemView"]):not([class*="queue__item"]):not(:has(> [class*="itle" i])), [class*="queueItemView__artwork"]) {
+    margin-right: 14px !important;
+  }
+  :is(html,#_) .queue .sc-artwork { background-size: cover !important; }
+  :is(html,#_) .queue .queueItemView { padding-left: 10px !important; }
+  :is(html,#_) .queue .queueItemView :is(a, span, div, p) { font-size: 14px !important; line-height: 1.35 !important; }
+  :is(html,#_) .queue [class*="queueItemView__title"] :is(a, span) { font-size: 15px !important; font-weight: 700 !important; color: #fff !important; }
+  :is(html,#_) .queue :is([class*="queueItemView"], [class*="queue__item"]):is(.m-active, .m-playing, [class*="active"]) {
+    background-color: #1a0024 !important;
+  }
+
+  /* Menus « … » en panneau en bas */
+  :is(html,#_) .dropdownMenu {
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    top: auto !important;
+    bottom: calc(var(--nav-h) + 8px) !important;
+    width: auto !important;
+    max-height: 60% !important;
+    overflow-y: auto !important;
+    background: #000 padding-box !important;
+    border: 2px solid var(--v) !important;
+    border-radius: 16px !important;
+    z-index: 2147483000 !important;
+  }
+  :is(html,#_) .dropbar {
+    position: fixed !important;
+    top: 46px !important;
+    left: 6px !important;
+    right: 6px !important;
+    width: auto !important;
+  }
+  :is(html,#_) .dropbar__content {
+    background: #000 padding-box !important;
+    border: 2px solid var(--v) !important;
+    border-radius: 16px !important;
+  }
+  :is(html,#_) .modal__modal {
+    width: auto !important;
+    max-width: calc(100% - 16px) !important;
+    box-sizing: border-box !important;
+    background: #000 padding-box !important;
+    border: 2px solid var(--v) !important;
+    border-radius: 16px !important;
+  }
+}
+}
